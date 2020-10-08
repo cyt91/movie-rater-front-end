@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import MovieList from './components/movie-list';
+import MovieDetails from './components/movie-details';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState('');
 
   const movieClicked = (movie) => {
-    setSelectedMovie(movie.title);
+    setSelectedMovie(movie);
   };
 
   useEffect(() => {
@@ -30,7 +31,7 @@ function App() {
       </header>
       <div className="layout">
         <MovieList movies={movies} movieClicked={movieClicked} />
-        <div>Movie details</div>
+        <MovieDetails movie={selectedMovie} />
       </div>
     </div>
   );
