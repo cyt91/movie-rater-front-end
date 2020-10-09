@@ -23,6 +23,34 @@ export default function MovieDetails(props) {
     ));
   };
 
+  const getDetails = () => {
+    fetch(`http://127.0.0.1:8000/api/movies/${movie.id}/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Token 42444ee862e5e065edcd497840a445ae8ad4ca2d',
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => props.updateMovie(response))
+      .catch((error) => console.log(error));
+  };
+
+  const rateMovieHandler = (rating) => (evt) => {
+    fetch(`http://127.0.0.1:8000/api/movies/${movie.id}/rate_movie/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Token 42444ee862e5e065edcd497840a445ae8ad4ca2d',
+      },
+      body: JSON.stringify({
+        stars: rating,
+      }),
+    })
+      .then(() => getDetails())
+      .catch((error) => console.log(error));
+  };
+
   const RateMovie = () => {
     return (
       <div className="rate-container">
@@ -35,29 +63,13 @@ export default function MovieDetails(props) {
               key={`${movie.id + i}userRateMovie`}
               onMouseEnter={() => setHighlightedStars(i + 1)}
               onMouseLeave={() => setHighlightedStars(0)}
-              onClick={rateClick(i + 1)}
+              onClick={rateMovieHandler(i + 1)}
             />
           );
         })}
       </div>
     );
   };
-
-  const rateClick = rating => evt => {
-    fetch(`http://127.0.0.1:8000/api/movies/${movie.id}/rate_movie/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Token 42444ee862e5e065edcd497840a445ae8ad4ca2d',
-      },
-      body: JSON.stringify({
-        stars: rating,
-      }),
-    })
-      .then((response) => response.json())
-      .then((resp) => console.log(resp))
-      .catch((error) => console.log(error));
-  }
 
   return (
     <>

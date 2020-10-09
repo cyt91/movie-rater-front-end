@@ -7,7 +7,11 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState('');
 
-  const movieClicked = (movie) => {
+  const movieClickedHandler = (movie) => {
+    setSelectedMovie(movie);
+  };
+
+  const loadMovie = (movie) => {
     setSelectedMovie(movie);
   };
 
@@ -30,8 +34,8 @@ function App() {
         <h1>Movie rater</h1>
       </header>
       <div className="layout">
-        <MovieList movies={movies} movieClicked={movieClicked} />
-        <MovieDetails movie={selectedMovie} />
+        <MovieList movies={movies} movieClickedHandler={movieClickedHandler} />
+        <MovieDetails movie={selectedMovie} updateMovie={loadMovie} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function MovieList(props) {
-  const { movies, movieClicked: movieClickedFunc } = props;
+  const { movies, movieClickedHandler: movieClickedFunc } = props;
   const movieClicked = (movie) => (evt) => {
     movieClickedFunc(movie);
     console.log(evt);
