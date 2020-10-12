@@ -81,9 +81,7 @@ export default function MovieDetails(props) {
           <UnfilledStars />({movie.no_of_ratings})
           <RateMovie />
         </div>
-      ) : (
-        <div />
-      )}
+      ) : null}
     </>
   );
 }

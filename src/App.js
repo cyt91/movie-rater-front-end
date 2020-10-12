@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import MovieList from './components/movie-list';
 import MovieDetails from './components/movie-details';
+import MovieForm from './components/movie-form';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState('');
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [editedMovie, setEditedMovie] = useState(null);
 
-  const movieClickedHandler = (movie) => {
-    setSelectedMovie(movie);
+  const editClickedHandler = (movie) => {
+    setEditedMovie(movie);
+    setSelectedMovie(null);
   };
 
   const loadMovie = (movie) => {
     setSelectedMovie(movie);
+    setEditedMovie(null);
   };
 
   useEffect(() => {
@@ -34,8 +38,13 @@ function App() {
         <h1>Movie rater</h1>
       </header>
       <div className="layout">
-        <MovieList movies={movies} movieClickedHandler={movieClickedHandler} />
+        <MovieList
+          movies={movies}
+          movieClickedHandler={loadMovie}
+          editClickedHandler={editClickedHandler}
+        />
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie} />
+        <MovieForm movie={editedMovie} />
       </div>
     </div>
   );
