@@ -44,7 +44,7 @@ function App() {
           editClickedHandler={editClickedHandler}
         />
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie} />
-        <MovieForm movie={editedMovie} />
+        {editedMovie ? <MovieForm movie={editedMovie} /> : null}
       </div>
     </div>
   );
