@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import API from '../api-service';
 
 export default function MovieForm(props) {
   const { movie } = props;
@@ -6,8 +6,10 @@ export default function MovieForm(props) {
   const [description, setDescription] = useState(movie?.description || '');
 
   const updateClicked = () => {
-    console.log('update here');
-  }
+    API.updateMovie(movie.id, { title, description })
+      .then((resp) => props.updatedMovie(resp))
+      .catch((error) => console.error(error));
+  };
 
   return (
     <>
@@ -33,9 +35,9 @@ export default function MovieForm(props) {
             onChange={(event) => setDescription(event.target.value)}
           />
           <br />
-          <button type="submit" onClick={updateClicked}>
-            Update
-          </button>
+            <button type="submit" onClick={updateClicked}>
+              Update
+            </button>
         </div>
       ) : null}
     </>

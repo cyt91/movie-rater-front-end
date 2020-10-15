@@ -19,17 +19,27 @@ function App() {
     setEditedMovie(null);
   };
 
+  const updatedMovie = (mov) => {
+    const newMovies = movies.map((movie) => {
+      if (movie.id === mov.id) {
+        return mov;
+      }
+      return movie;
+    });
+    setMovies(newMovies);
+  };
+
   useEffect(() => {
     fetch('http://127.0.0.1:8000/api/movies/', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Token 42444ee862e5e065edcd497840a445ae8ad4ca2d',
+        Authorization: 'Token 42444ee862e5e065edcd497840a445ae8ad4ca2d',
       },
     })
       .then((response) => response.json())
       .then((resp) => setMovies(resp))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, []);
 
   return (
@@ -44,7 +54,12 @@ function App() {
           editClickedHandler={editClickedHandler}
         />
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie} />
-        {editedMovie ? <MovieForm movie={editedMovie} /> : null}
+        {editedMovie ? (
+          <MovieForm
+            movie={editedMovie}
+            updatedMovie={updatedMovie}
+          />
+        ) : null}
       </div>
     </div>
   );
