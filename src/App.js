@@ -42,22 +42,39 @@ function App() {
       .catch((error) => console.error(error));
   }, []);
 
+  const createNewMovie = () => {
+    setEditedMovie({ title: '', description: '' });
+    setSelectedMovie(null);
+  };
+
+  const movieCreated = (movie) => {
+    const newMovies = [...movies, movie];
+    setMovies(newMovies);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>Movie rater</h1>
       </header>
       <div className="layout">
-        <MovieList
-          movies={movies}
-          movieClickedHandler={loadMovie}
-          editClickedHandler={editClickedHandler}
-        />
+        <div>
+          <MovieList
+            movies={movies}
+            movieClickedHandler={loadMovie}
+            editClickedHandler={editClickedHandler}
+          />
+          <button type="button" onClick={createNewMovie}>
+            New Movie
+          </button>
+        </div>
+
         <MovieDetails movie={selectedMovie} updateMovie={loadMovie} />
         {editedMovie ? (
           <MovieForm
             movie={editedMovie}
             updatedMovie={updatedMovie}
+            movieCreated={movieCreated}
           />
         ) : null}
       </div>

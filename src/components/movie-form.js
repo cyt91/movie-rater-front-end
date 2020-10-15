@@ -11,6 +11,12 @@ export default function MovieForm(props) {
       .catch((error) => console.error(error));
   };
 
+  const createClicked = () => {
+    API.createMovie({ title, description })
+      .then((resp) => props.movieCreated(resp))
+      .catch((error) => console.error(error));
+  };
+
   return (
     <>
       {movie ? (
@@ -35,9 +41,15 @@ export default function MovieForm(props) {
             onChange={(event) => setDescription(event.target.value)}
           />
           <br />
+          {movie.id ? (
             <button type="submit" onClick={updateClicked}>
               Update
             </button>
+          ) : (
+            <button type="submit" onClick={createClicked}>
+              Create
+            </button>
+          )}
         </div>
       ) : null}
     </>
