@@ -1,9 +1,15 @@
+import React, { useState, useEffect } from 'react';
 import API from '../api-service';
 
 export default function MovieForm(props) {
   const { movie } = props;
   const [title, setTitle] = useState(movie?.title || '');
   const [description, setDescription] = useState(movie?.description || '');
+
+  useEffect(() => {
+    setTitle(movie?.title);
+    setDescription(movie?.description);
+  }, [movie]);
 
   const updateClicked = () => {
     API.updateMovie(movie.id, { title, description })
