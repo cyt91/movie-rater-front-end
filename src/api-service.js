@@ -1,34 +1,32 @@
-const TOKEN = '42444ee862e5e065edcd497840a445ae8ad4ca2d';
-
 export default class API {
-  static updateMovie(movieId, body) {
+  static updateMovie(movieId, body, token) {
     return fetch(`http://127.0.0.1:8000/api/movies/${movieId}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token ${TOKEN}`,
+        Authorization: `Token ${token['mr-token']}`,
       },
       body: JSON.stringify(body),
     }).then((response) => response.json());
   }
 
-  static createMovie(body) {
+  static createMovie(body, token) {
     return fetch(`http://127.0.0.1:8000/api/movies/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token ${TOKEN}`,
+        Authorization: `Token ${token['mr-token']}`,
       },
       body: JSON.stringify(body),
     }).then((response) => response.json());
   }
 
-  static removeMovie(movieId) {
+  static removeMovie(movieId, token) {
     return fetch(`http://127.0.0.1:8000/api/movies/${movieId}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token ${TOKEN}`,
+        Authorization: `Token ${token['mr-token']}`,
       },
     });
   }

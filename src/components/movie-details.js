@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { useCookies } from 'react-cookie';
 
 export default function MovieDetails(props) {
   const { movie } = props;
   const [highlightedStars, setHighlightedStars] = useState(0);
   const numStarsFilled = Math.trunc(movie?.avg_rating || 0);
   const numStarsUnfilled = 5 - numStarsFilled;
+  const [token] = useCookies(['mr-token']);
 
   const FilledStars = () => {
     return [...Array(numStarsFilled)].map((e, i) => (
@@ -28,7 +30,7 @@ export default function MovieDetails(props) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Token 42444ee862e5e065edcd497840a445ae8ad4ca2d',
+        Authorization: `Token ${token['mr-token']}`,
       },
     })
       .then((response) => response.json())
@@ -41,7 +43,7 @@ export default function MovieDetails(props) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Token 42444ee862e5e065edcd497840a445ae8ad4ca2d',
+        Authorization: `Token ${token['mr-token']}`,
       },
       body: JSON.stringify({
         stars: rating,

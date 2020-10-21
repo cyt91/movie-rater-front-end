@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useCookies } from 'react-cookie';
 import API from '../api-service';
 
 export default function MovieList(props) {
@@ -10,6 +11,7 @@ export default function MovieList(props) {
     editClickedHandler: editClickedFunc,
     removeClickedHandler: removeClickedFunc,
   } = props;
+  const [token] = useCookies(['mr-token']);
   const movieClicked = (movie) => (evt) => {
     movieClickedFunc(movie);
   };
@@ -19,7 +21,7 @@ export default function MovieList(props) {
   };
 
   const removeClicked = (movieId) => {
-    API.removeMovie(movieId)
+    API.removeMovie(movieId, token)
       .then(() => removeClickedFunc(movieId))
       .catch((error) => console.error(error));
   };
