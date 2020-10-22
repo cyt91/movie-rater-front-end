@@ -8,6 +8,7 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [token, setToken] = useCookies(['mr-token']);
   const [isLoginView, setIsLoginView] = useState(true);
+  const isDisabled = !username.trim().length || !password.trim().length;
 
   useEffect(() => {
     if (token['mr-token']) window.location.href = '/movies';
@@ -26,60 +27,65 @@ export default function Auth() {
   };
 
   return (
-    <div>
-      {isLoginView ? <h1>Login</h1> : <h1>Register</h1>}
-      <label htmlFor="username">Username</label>
-      <br />
-      <input
-        id="username"
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(event) => setUsername(event.target.value)}
-      />
-      <br />
-      <label htmlFor="password">Password</label>
-      <br />
-      <input
-        id="password"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <br />
-      {isLoginView ? (
-        <button type="submit" onClick={loginClicked}>
-          Login
-        </button>
-      ) : (
-        <button type="submit" onClick={registerClicked}>
-          Register
-        </button>
-      )}
-      {isLoginView ? (
-        <p>
-          You don&apos;t have an account? Register{' '}
-          <Link
-            href="javascript:void(0)"
-            to=""
-            onClick={() => setIsLoginView(false)}
-          >
-            here
-          </Link>
-        </p>
-      ) : (
-        <p>
-          You already have an account? Login{' '}
-          <Link
-            href="javascript:void(0)"
-            to=""
-            onClick={() => setIsLoginView(true)}
-          >
-            here
-          </Link>
-        </p>
-      )}
+    <div className="App">
+      <header className="App-header">
+        {isLoginView ? <h1>Login</h1> : <h1>Register</h1>}
+      </header>
+
+      <div className="login-container">
+        <label htmlFor="username">Username</label>
+        <br />
+        <input
+          id="username"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <br />
+        <label htmlFor="password">Password</label>
+        <br />
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <br />
+        {isLoginView ? (
+          <button type="submit" onClick={loginClicked} disabled={isDisabled}>
+            Login
+          </button>
+        ) : (
+          <button type="submit" onClick={registerClicked} disabled={isDisabled}>
+            Register
+          </button>
+        )}
+        {isLoginView ? (
+          <p>
+            You don&apos;t have an account? Register{' '}
+            <Link
+              href="javascript:void(0)"
+              to=""
+              onClick={() => setIsLoginView(false)}
+            >
+              here
+            </Link>
+          </p>
+        ) : (
+          <p>
+            You already have an account? Login{' '}
+            <Link
+              href="javascript:void(0)"
+              to=""
+              onClick={() => setIsLoginView(true)}
+            >
+              here
+            </Link>
+          </p>
+        )}
+      </div>
     </div>
   );
 }

@@ -30,7 +30,7 @@ export default function MovieList(props) {
     <div>
       {movies?.map((movie) => (
         <div key={movie.id} className="movie-item">
-          <h2 onClick={movieClicked(movie)}>{movie.title}</h2>
+          <h2 className="movie-title" onClick={movieClicked(movie)}>{movie.title}</h2>
           <FontAwesomeIcon icon={faEdit} onClick={() => editClicked(movie)} />
           <FontAwesomeIcon
             icon={faTrash}

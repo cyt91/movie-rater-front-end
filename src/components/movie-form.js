@@ -7,6 +7,7 @@ export default function MovieForm(props) {
   const [title, setTitle] = useState(movie?.title || '');
   const [description, setDescription] = useState(movie?.description || '');
   const [token] = useCookies(['mr-token']);
+  const isDisabled = !title.trim().length || !description.trim().length;
 
   useEffect(() => {
     setTitle(movie?.title);
@@ -50,11 +51,11 @@ export default function MovieForm(props) {
           />
           <br />
           {movie.id ? (
-            <button type="submit" onClick={updateClicked}>
+            <button type="submit" onClick={updateClicked} disabled={isDisabled}>
               Update
             </button>
           ) : (
-            <button type="submit" onClick={createClicked}>
+            <button type="submit" onClick={createClicked} disabled={isDisabled}>
               Create
             </button>
           )}

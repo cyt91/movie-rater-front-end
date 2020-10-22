@@ -17,6 +17,34 @@
   grid-gap: 20px;
 }
 
+.login-container{
+  width: 50%;
+  margin: 0 25%;
+}
+
+button{
+  color: #444;
+  background-color: #f3f3f3;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+button:disabled{
+  color: #f3f3f3;
+  background-color:#444;
+  cursor: not-allowed;
+}
+
+input, textarea{
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  font-size: 0.8rem;
+}
+
 .orange {
   color: orange;
 }
@@ -43,4 +71,26 @@
 .movie-item svg{
   font-size: 1.2rem;
   margin: 28px 5px;
+}
+
+.fa-trash:hover{
+  color: crimson;
+  cursor: pointer;
+}
+.fa-edit:hover{
+  color:green;
+  cursor: pointer;
+}
+
+.movie-title:hover {
+  cursor: pointer;
+}
+
+h1{
+  color: orange;
+}
+
+h1 .fa-film{
+  color: white;
+  transform: rotate(30deg);
 }
