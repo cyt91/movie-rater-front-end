@@ -16,8 +16,16 @@ export default function Auth() {
 
   const loginClicked = () => {
     API.loginUser({ username, password })
-      .then((response) => setToken('mr-token', response.token))
-      .catch((error) => console.error(error));
+      .then((response) => {
+        if (!response.non_field_errors) {
+          setToken('mr-token', response.token);
+          return;
+        }
+        alert('Invalid credentials.');
+      })
+      .catch((error) => {
+        console.error('loginClicked error:', error);
+      });
   };
 
   const registerClicked = () => {
