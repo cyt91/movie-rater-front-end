@@ -6,12 +6,14 @@ import './App.css';
 import MovieList from './components/movie-list';
 import MovieDetails from './components/movie-details';
 import MovieForm from './components/movie-form';
+import useFetch from './hooks/useFetch';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovie] = useState(null);
   const [token, setToken, removeToken] = useCookies(['mr-token']);
+  const [data, isLoading, errorLoading] = useFetch();
 
   const editClickedHandler = (movie) => {
     setEditedMovie(movie);
@@ -38,17 +40,8 @@ function App() {
   }, [token]);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/movies/', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${token['mr-token']}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((resp) => setMovies(resp))
-      .catch((error) => console.error(error));
-  }, []);
+    setMovies(data);
+  }, [data]);
 
   const createNewMovie = () => {
     setEditedMovie({ title: '', description: '' });
@@ -68,6 +61,23 @@ function App() {
   const logOutUser = () => {
     removeToken(['mr-token']);
   };
+
+  if (isLoading)
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Loading movies...</h1>
+        </header>
+      </div>
+    );
+  if (errorLoading)
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Error loading movies</h1>
+        </header>
+      </div>
+    );
 
   return (
     <div className="App">
