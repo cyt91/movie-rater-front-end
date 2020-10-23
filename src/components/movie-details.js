@@ -26,7 +26,7 @@ export default function MovieDetails(props) {
   };
 
   const getDetails = () => {
-    fetch(`http://127.0.0.1:8000/api/movies/${movie.id}/`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/movies/${movie.id}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -35,22 +35,25 @@ export default function MovieDetails(props) {
     })
       .then((response) => response.json())
       .then((response) => props.updateMovie(response))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 
   const rateMovieHandler = (rating) => (evt) => {
-    fetch(`http://127.0.0.1:8000/api/movies/${movie.id}/rate_movie/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${token['mr-token']}`,
+    fetch(
+      `${process.env.REACT_APP_API_URL}/api/movies/${movie.id}/rate_movie/`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${token['mr-token']}`,
+        },
+        body: JSON.stringify({
+          stars: rating,
+        }),
       },
-      body: JSON.stringify({
-        stars: rating,
-      }),
-    })
+    )
       .then(() => getDetails())
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   };
 
   const RateMovie = () => {

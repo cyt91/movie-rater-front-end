@@ -1,6 +1,6 @@
 export default class API {
   static updateMovie(movieId, body, token) {
-    return fetch(`http://127.0.0.1:8000/api/movies/${movieId}/`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/api/movies/${movieId}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -11,7 +11,7 @@ export default class API {
   }
 
   static createMovie(body, token) {
-    return fetch(`http://127.0.0.1:8000/api/movies/`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/api/movies/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export default class API {
   }
 
   static removeMovie(movieId, token) {
-    return fetch(`http://127.0.0.1:8000/api/movies/${movieId}/`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/api/movies/${movieId}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export default class API {
   }
 
   static loginUser(body) {
-    return fetch(`http://127.0.0.1:8000/auth/`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/auth/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export default class API {
   }
 
   static registerUser(body) {
-    return fetch(`http://127.0.0.1:8000/api/users/`, {
+    return fetch(`${process.env.REACT_APP_API_URL}/api/users/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export default class API {
   }
 
   static getMovies(token) {
-    return fetch('http://127.0.0.1:8000/api/movies/', {
+    return fetch(`${process.env.REACT_APP_API_URL}/api/movies/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
