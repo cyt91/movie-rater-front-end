@@ -1,3 +1,8 @@
+## Go to https://movie-rater-demo.firebaseapp.com/ for a demo.
+Front end developed using React and deployed on firebase.
+Back end developed using Python Django and deployed on heroku.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
